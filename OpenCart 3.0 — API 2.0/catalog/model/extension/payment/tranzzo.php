@@ -9,11 +9,11 @@ class ModelExtensionPaymentTranzzo extends Model
             return false;
         }
 
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('tranzzo_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_tranzzo_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
 
-        if ($this->config->get('tranzzo_total') > 0 && $this->config->get('tranzzo_total') > $total) {
+        if ($this->config->get('payment_tranzzo_total') > 0 && $this->config->get('payment_tranzzo_total') > $total) {
             $status = false;
-        } elseif (!$this->config->get('tranzzo_geo_zone_id')) {
+        } elseif (!$this->config->get('payment_tranzzo_geo_zone_id')) {
             $status = true;
         } elseif ($query->num_rows) {
             $status = true;
@@ -29,7 +29,7 @@ class ModelExtensionPaymentTranzzo extends Model
                 'code' => 'tranzzo',
                 'title' => $this->language->get('text_title'),
                 'terms' => '',
-                'sort_order' => $this->config->get('tranzzo_sort_order')
+                'sort_order' => $this->config->get('payment_tranzzo_sort_order')
             );
         }
 
